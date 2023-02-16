@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Gamerji</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="w-full">
+      <div class="container mx-auto mb-10">
+          <div class="flex flex-col items-center space-y-3">
+              <div class="h-24 w-24 text-center">
+                  <img src="https://www.gamerji.com/img/logo.png" alt="" class="rounded-full">
+              </div>
+              <h2 class="text-2xl">
+                  Avidus Image to Table Extraction Tool
+              </h2>
+              <h3 class="text-xl">
+                  This tool is explicitly designed for Gamerji, to extract Leader Board tables from FreeFire Contest
+                  Result
+              </h3>
+          </div>
+      </div>
+      <form id="uploadForm"
+          enctype="multipart/form-data"
+          action="/api/photo"
+          method="post">
+          <div class="container mx-auto font-light flex items-center h-screen1">
+           
+            <div class="grid grid-col-1 gap-6 w-full">
+                <div class="shadow-md border p-6">
+                    <h3 class="text-2xl">Select your Image style</h3>
+                    <div class="flex my-6 space-x-10">
+                        <div class="flex space-x-2 items-center">
+                            <input type="radio" checked="checked">
+                            <label>Freefire</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shadow-md border p-6">
+
+                    <div class="flex my-6 space-x-10">
+                        <input type="file" name="userPhoto" multiple class="border-2 p-1 rounded" >
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="Extract Ranks" class="bg-cyan-400 shadow-md text-white px-12 py-3">
+                </div>
+            </div>
+        </div>
+      <span id = "status"></span>
+    </form>
+    </div>
+  </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script>
+  $(document).ready(function() {
+
+     $('#uploadForm').submit(function() {
+		 $("#status").empty().text("File is uploading...");
+
+        $(this).ajaxSubmit({
+
+            error: function(xhr) {
+		            status('Error: ' + xhr.status);
+            },
+
+            success: function(response) {
+					console.log(response)
+					$("#status").empty().text(response);
+            }
+	});
+
+	return false;
+    });    
+});
+  </script>
+</html>
